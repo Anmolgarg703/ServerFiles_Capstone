@@ -20,13 +20,13 @@ function addEntryToDatabase($requestJson){
 	$activity = $requestJson->activity;
 	$COBaseline = $requestJson->COBaseline;
 	$SO2Baseline = $requestJson->SO2Baseline;
-	$tiaGain = $requestJson->tia_gain;
-	$responseRatio = $requestJson->responseRatio;
-	$serialNumber = $requestJson->serialNumber;
+	//$tiaGain = $requestJson->tia_gain;
+	//$responseRatio = $requestJson->responseRatio;
+	//$serialNumber = $requestJson->serialNumber;
 	$coRaw = $requestJson->CO_Raw;
 	$so2Raw = $requestJson->SO2_Raw;
 	
-	$sql = "INSERT INTO pollutiondata (TimeStamp, User, Latitude, Longitude, AccelerometerX, AccelerometerY, AccelerometerZ, MagnetometerX, MagnetometerY, MagnetometerZ, SO2, SO2_Raw, CO, CO_Raw, GPSSpeed, Activity, COBaseline, SO2Baseline, TiaGain, ResponseRatio, SerialNumber) VALUES ($timestamp, $username, $latitude, $longitude, $accelerometerX, $accelerometerY, $accelerometerZ, $magnetometerX, $magnetometerY, $magnetometerZ, $so2, $so2Raw, $co, $coRaw, $gpsSpeed, '$activity', $COBaseline, $SO2Baseline, $tiaGain, $responseRatio, '$serialNumber')";
+	$sql = "INSERT INTO pollutiondata (TimeStamp, User, Latitude, Longitude, AccelerometerX, AccelerometerY, AccelerometerZ, MagnetometerX, MagnetometerY, MagnetometerZ, SO2, SO2_Raw, CO, CO_Raw, GPSSpeed, Activity, COBaseline, SO2Baseline) VALUES ($timestamp, $username, $latitude, $longitude, $accelerometerX, $accelerometerY, $accelerometerZ, $magnetometerX, $magnetometerY, $magnetometerZ, $so2, $so2Raw, $co, $coRaw, $gpsSpeed, '$activity', $COBaseline, $SO2Baseline)";
 
 	if (mysqli_query($conn, $sql)) {
 		echo "New record created successfully";

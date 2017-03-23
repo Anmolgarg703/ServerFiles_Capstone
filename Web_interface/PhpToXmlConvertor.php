@@ -51,6 +51,7 @@ while ($row = mysqli_fetch_assoc($result)){
   $newnode->setAttribute("User",$row['User']);
   //$newnode->setAttribute("address", $row['address']);
   $newnode->setAttribute("CO", $row['CO']);
+  $newnode->setAttribute("SO2", $row['SO2']);
   $newnode->setAttribute("latitude", $row['Latitude']);
   $newnode->setAttribute("longitude", $row['Longitude']);
 }
