@@ -8,7 +8,7 @@ if ($result->num_rows > 0) {
 	echo "<tr><th> S.No. </th><th> Timestamp </th><th>User </th><th> Latitude </th><th> Longitude </th><th> Humidity </th><th> Temperature </th><th> PM2.5</th></tr>";
 	while($row = $result->fetch_assoc()) {
 		$count++;
-		echo "<tr><td> $count </td> <td>" . $row['Timestamp_Epoch'] . "</td><td>". $row['User']."</td><td>". $row['Latitude']."</td><td>". $row['Longitude']."</td><td>". $row['Humidity']."</td><td>". $row['Temperature']."</td><td>". $row['PM2.5']."</td></tr>";
+		echo "<tr><td> $count </td> <td>" . $row['Timestamp_Epoch'] . "</td><td>". $row['Username']."</td><td>". $row['Latitude']."</td><td>". $row['Longitude']."</td><td>". $row['Humidity']."</td><td>". $row['Temperature']."</td><td>". $row['PM25']."</td></tr>";
     }
 	echo "</table>";
 }
