@@ -22,7 +22,7 @@ $dom = new DOMDocument("1.0");
 $node = $dom->createElement("markers");
 $parnode = $dom->appendChild($node);
 
-$query = "SELECT * FROM aircastingdata WHERE `Username`=$user AND `TimeStamp_Epoch`>=$fromTimestamp AND `TimeStamp_Epoch`<=$toTimestamp";
+$query = "SELECT Username, Latitude, Longitude, AVG(PM25) as `PM25` FROM aircastingdata WHERE `Username`=$user AND `TimeStamp_Epoch`>=$fromTimestamp AND `TimeStamp_Epoch`<=$toTimestamp GROUP BY Latitude, Longitude";
 $result = mysqli_query($conn, $query);
 if (!$result) {
   die('Invalid query: ' . mysql_error());

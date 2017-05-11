@@ -59,13 +59,13 @@
     <div id="map"></div>
     <script>
 
-      var map, heatmap, heatmap1, heatmap2, heatmap3, totalEntries;
+      var map, heatmap, heatmap1, heatmap2, heatmap3, heatmap4, heatmap5, totalEntries;
 	  var WeightedCoordinates = [];
 	  var WeightedCoordinates1 = [];
 	  var WeightedCoordinates2 = []
 	  var WeightedCoordinates3 = [];
-	  //var WeightedCoordinates4 = [];
-	  
+	  var WeightedCoordinates4 = [];
+	  var WeightedCoordinates5 = [];
 	  
 	  function downloadUrl(url, callback) {
             var request = window.ActiveXObject ?
@@ -95,22 +95,23 @@
                 lng = parseFloat(markers[i].getAttribute("longitude"));
 				//window.alert(lng);
 				pm = parseFloat(markers[i].getAttribute("PM2.5"));
-				//so2 = parseFloat(markers[i].getAttribute("SO2"));
-				//combined = co + so2;
-				//window.alert(co);
-				//coordinates = new google.maps.LatLng(lat, lng);
-				//window.alert("Hello" . coordinates);
-				if(pm<=20.0){
-				WeightedCoordinates.push({location: new google.maps.LatLng(lat, lng), weight: pm});
-				}
-				else if(pm<=40.0){
-					WeightedCoordinates1.push({location: new google.maps.LatLng(lat, lng), weight: pm});
+				if(pm<=30.0){
+					WeightedCoordinates.push({location: new google.maps.LatLng(lat, lng), weight: pm});
 				}
 				else if(pm<=60.0){
+					WeightedCoordinates1.push({location: new google.maps.LatLng(lat, lng), weight: pm});
+				}
+				else if(pm<=90.0){
 					WeightedCoordinates2.push({location: new google.maps.LatLng(lat, lng), weight: pm});
 				}
-				else{
+				else if(pm<=120){
 					WeightedCoordinates3.push({location: new google.maps.LatLng(lat, lng), weight: pm});
+				}
+				else if(pm<=250){
+					WeightedCoordinates4.push({location: new google.maps.LatLng(lat, lng), weight: pm});
+				}
+				else{
+					WeightedCoordinates5.push({location: new google.maps.LatLng(lat, lng), weight: pm});
 				}
 				//WeightedCoordinates.push(new google.maps.LatLng(lat, lng));
 				//console.log(lat, lng);
@@ -143,6 +144,14 @@
           data: getPoints3(),
           map: map
         });
+		heatmap4 = new google.maps.visualization.HeatmapLayer({
+          data: getPoints4(),
+          map: map
+        });
+		heatmap5 = new google.maps.visualization.HeatmapLayer({
+          data: getPoints5(),
+          map: map
+        });
       }
 
       //window.alert(1);
@@ -151,6 +160,8 @@
 		heatmap1.setMap(heatmap1.getMap() ? null : map);
 		heatmap2.setMap(heatmap2.getMap() ? null : map);
 		heatmap3.setMap(heatmap3.getMap() ? null : map);
+		heatmap4.setMap(heatmap4.getMap() ? null : map);
+		heatmap5.setMap(heatmap5.getMap() ? null : map);
       }
 	  
 	  function viewTotalEntries(){
@@ -172,7 +183,7 @@
           'rgba(63, 0, 91, 1)',
           'rgba(127, 0, 63, 1)',
           'rgba(191, 0, 31, 1)',
-          'rgba(0, 0, 255, 1)'
+          'rgba(0, 128, 0, 1)'
         ]
 		var gradient1 = [
           'rgba(0, 255, 255, 0)',
@@ -188,7 +199,7 @@
           'rgba(63, 0, 91, 1)',
           'rgba(127, 0, 63, 1)',
           'rgba(191, 0, 31, 1)',
-          'rgba(255, 0, 0, 1)'
+          'rgba(127, 255, 0, 1)'
         ]
 		var gradient2 = [
           'rgba(0, 255, 255, 0)',
@@ -204,7 +215,7 @@
           'rgba(63, 0, 91, 1)',
           'rgba(127, 0, 63, 1)',
           'rgba(191, 0, 31, 1)',
-          'rgba(0, 255, 255, 1)'
+          'rgba(255, 255, 0, 1)'
         ]
 		var gradient3 = [
           'rgba(0, 255, 255, 0)',
@@ -220,12 +231,46 @@
           'rgba(63, 0, 91, 1)',
           'rgba(127, 0, 63, 1)',
           'rgba(191, 0, 31, 1)',
-          'rgba(0, 255, 0, 1)'
+          'rgba(255, 165, 0, 1)'
+        ]
+		var gradient4 = [
+          'rgba(0, 255, 255, 0)',
+          'rgba(0, 255, 255, 1)',
+          'rgba(0, 191, 255, 1)',
+          'rgba(0, 127, 255, 1)',
+          'rgba(0, 63, 255, 1)',
+          'rgba(0, 0, 255, 1)',
+          'rgba(0, 0, 223, 1)',
+          'rgba(0, 0, 191, 1)',
+          'rgba(0, 0, 159, 1)',
+          'rgba(0, 0, 127, 1)',
+          'rgba(63, 0, 91, 1)',
+          'rgba(127, 0, 63, 1)',
+          'rgba(191, 0, 31, 1)',
+          'rgba(255, 0, 0, 1)'
+        ]
+		var gradient5 = [
+          'rgba(0, 255, 255, 0)',
+          'rgba(0, 255, 255, 1)',
+          'rgba(0, 191, 255, 1)',
+          'rgba(0, 127, 255, 1)',
+          'rgba(0, 63, 255, 1)',
+          'rgba(0, 0, 255, 1)',
+          'rgba(0, 0, 223, 1)',
+          'rgba(0, 0, 191, 1)',
+          'rgba(0, 0, 159, 1)',
+          'rgba(0, 0, 127, 1)',
+          'rgba(63, 0, 91, 1)',
+          'rgba(127, 0, 63, 1)',
+          'rgba(191, 0, 31, 1)',
+          'rgba(128, 0, 0, 1)'
         ]
         heatmap.set('gradient', heatmap.get('gradient') ? null : gradient);
 		heatmap1.set('gradient', heatmap1.get('gradient') ? null : gradient1);
 		heatmap2.set('gradient', heatmap2.get('gradient') ? null : gradient2);
 		heatmap3.set('gradient', heatmap3.get('gradient') ? null : gradient3);
+		heatmap4.set('gradient', heatmap4.get('gradient') ? null : gradient4);
+		heatmap5.set('gradient', heatmap5.get('gradient') ? null : gradient5);
       }
 
       function changeRadius() {
@@ -233,6 +278,8 @@
 		heatmap1.set('radius', heatmap1.get('radius') ? null : 5);
 		heatmap2.set('radius', heatmap2.get('radius') ? null : 5);
 		heatmap3.set('radius', heatmap3.get('radius') ? null : 5);
+		heatmap4.set('radius', heatmap4.get('radius') ? null : 5);
+		heatmap5.set('radius', heatmap5.get('radius') ? null : 5);
       }
 
       function changeOpacity() {
@@ -251,6 +298,12 @@
       }
 	  function getPoints3() {
 		  return WeightedCoordinates3;
+      }
+	  function getPoints4() {
+		  return WeightedCoordinates4;
+      }
+	  function getPoints5() {
+		  return WeightedCoordinates5;
       }
     </script>
     <script async defer
